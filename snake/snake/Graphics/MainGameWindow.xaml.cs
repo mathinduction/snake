@@ -27,9 +27,11 @@ namespace snake.Graphics
 		public MainGameWindow()
 		{
 			InitializeComponent();
-			CompositionTarget.Rendering += OnFrame;
-			this.Height = Common.NumberPixelHeight*Common.PixelSize;
-			this.Width = Common.NumberPixelWidth*Common.PixelSize;
+			//CompositionTarget.Rendering += OnFrame;
+			canvasGame.Width = Common.NumberPixelWidth * Common.PixelSize;
+			canvasGame.Height = Common.NumberPixelHeight * Common.PixelSize;
+
+			StartGame();
 		}
 
 #region Events
@@ -38,9 +40,10 @@ namespace snake.Graphics
 		/// </summary>
 		private void OnFrame(object sender, EventArgs e)
 		{
+			canvasGame.Children.Clear();
 			_snake.Move(_keyPress);//Двигаем змейку
 			_level.Update(_snake.SnakeCoordinates);//Обновляем карту уровня
-			DrawTheScene.Draw(_level, canvasGame);//Перерисовываем сцену
+			DrawTheScene.Draw(_level, ref canvasGame);//Перерисовываем сцену
 
 			//TODO учитывать состояние игры: съели еду, врезались...
 
@@ -74,7 +77,7 @@ namespace snake.Graphics
 			_snake.ToTheStart();//Стартовое положение змейки
 			_level.Update(_snake.SnakeCoordinates);//Учитываем положение змейки
 			_level.GenerateFood();//Генерируем еду
-			DrawTheScene.Draw(_level, canvasGame);//Рисуем сцену
+			DrawTheScene.Draw(_level, ref canvasGame);//Рисуем сцену
 		}
 #endregion
 	}

@@ -36,8 +36,8 @@ namespace snake
 	{
 #region Private
 
-		private const int _numberPixelHeight = 30;
-		private const int _numberPixelWidth = 30;
+		private const int _numberPixelHeight = 15;
+		private const int _numberPixelWidth = 15;
 		private const int _pixelSize = 10;
 #endregion
 

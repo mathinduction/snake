@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Shapes;
+//using System.Drawing;
 
 namespace snake.Graphics
 {
@@ -11,12 +15,53 @@ namespace snake.Graphics
 	/// </summary>
 	public static class DrawTheScene
 	{
+		private static Point[,] _levelPixelCoord = new Point[Common.NumberPixelHeight, Common.NumberPixelWidth];//Координаты каждого пикселя в окне
+		private static Brush _colorNone = Brushes.Black;//Цвет пустого пикселя
+		private static Brush _colorBlock = Brushes.White;//Цвет пикселя с блоком
+		private static Brush _colorFood = Brushes.Yellow;//Цвет пикселя с едой
+		private static Brush _colorSnake = Brushes.YellowGreen;//Цвет пикселя с частью змейки
+
+		static DrawTheScene()
+		{
+			for (int i = 0; i < Common.NumberPixelHeight; i++)
+			{
+				int x = i*Common.PixelSize;
+				for (int j = 0; j < Common.NumberPixelWidth; j++)
+				{
+					int y = j*Common.PixelSize;
+					_levelPixelCoord[i,j] = new Point(x,y);
+				}
+			}
+		}
+
 		/// <summary>
 		/// Отрисовка
 		/// </summary>
-		public static void Draw(Game.Level level, Canvas canvas)
+		public static void Draw(Game.Level level, ref Canvas canvas)
 		{
-			
+			for (int i = 0; i < level.LevelPixels.GetLength(0); i++)
+				for (int j = 0; j < level.LevelPixels.GetLength(1); j++)
+				{
+					Rectangle rect = new Rectangle();
+					switch (level.LevelPixels[i, j])
+					{
+						case ePixelType.None:
+							rect = Pixel.DrawPixel(_colorNone);
+							break;
+						case ePixelType.Block:
+							rect = Pixel.DrawPixel(_colorBlock);
+							break;
+						case ePixelType.Food:
+							rect = Pixel.DrawPixel(_colorFood);
+							break;
+						case ePixelType.SnakePart:
+							rect = Pixel.DrawPixel(_colorSnake);
+							break;
+					}
+					Canvas.SetLeft(rect, _levelPixelCoord[i,j].X);
+					Canvas.SetTop(rect, _levelPixelCoord[i,j].Y);
+					canvas.Children.Add(rect);
+				}
 		}
 	}
 }
