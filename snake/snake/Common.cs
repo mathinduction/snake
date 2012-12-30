@@ -46,9 +46,11 @@ namespace snake
 
 		private static int _numberPixelHeight = 20;
 		private static int _numberPixelWidth = 15;
-		private const int _pixelSize = 20;
+		private const int _pixelSize = 15;
 
-		private const int _timeToMove = 1000;
+		private const int _timeToMove = 600;
+		private const int _speedUp = 3;
+		private static bool _holdKey = false;
 
 		private const string _pathLevels = "Levels";
 
@@ -83,7 +85,28 @@ namespace snake
 		/// </summary>
 		public static int TimeToMove
 		{
-			get { return _timeToMove; }
+			get
+			{
+				if (_holdKey)
+					return _timeToMove / _speedUp;
+				else
+					return _timeToMove;
+			}
+		}
+		/// <summary>
+		/// Во сколько раз увеличивается скорость при ускорении
+		/// </summary>
+		public static int SpeedUp
+		{
+			get { return _speedUp; }
+		}
+		/// <summary>
+		/// Включено ли ускорение
+		/// </summary>
+		public static bool HoldKey
+		{
+			set { _holdKey = value; }
+			get { return _holdKey; }
 		}
 		/// <summary>
 		/// Название папки, где хранятся файлы с картами уровня

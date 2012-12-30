@@ -48,9 +48,22 @@ namespace snake.Game
 
 			return sm;
 		}
+		/// <summary>
+		/// Генерирует "еду"
+		/// </summary>
 		public void GenerateFood()
 		{
-			
+			bool good = false;
+			int x = 0, y = 0;
+			do
+			{
+				Random coord = new Random(DateTime.Now.Millisecond);
+				x = coord.Next(_levelPixels.GetLength(0));
+				y = coord.Next(_levelPixels.GetLength(1));
+				if (_levelPixels[x, y] == ePixelType.None)
+					good = true;
+			} while (!good);
+			_levelPixels[x, y] = ePixelType.Food;
 		}
 		/// <summary>
 		/// Инициальзирует пустую карту

@@ -26,6 +26,7 @@ namespace snake.Graphics
 		private eKeyPress _keyPress;//Нажатая клавиша управления
 		private eKeyPress _moveDirection;//Направление движения змейки
 		private long _frameTime = 0;//Число милисекунд, прошедших с последнего обновления карты уровня
+		private bool _holdKey = false;//Флаг удержания клавиши. Нужен для включения ускорения
 #endregion
 		public MainGameWindow()
 		{
@@ -68,6 +69,7 @@ namespace snake.Graphics
 					break;
 				case eSnakeMove.Fed:
 					_snake.LengthUp();
+					_level.GenerateFood();
 					//TODO учитывать набранные очки
 					break;
 			}
@@ -75,25 +77,54 @@ namespace snake.Graphics
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
+			bool good = false;
 			switch (e.Key)
 			{
 				case Key.Up:
 					if (_moveDirection != eKeyPress.Down)
+					{
 						_keyPress = eKeyPress.Up;
+						good = true;
+					}
 					break;
 				case Key.Down:
 					if (_moveDirection != eKeyPress.Up)
+					{
 						_keyPress = eKeyPress.Down;
+						good = true;
+					}
 					break;
 				case Key.Left:
 					if (_moveDirection != eKeyPress.Right)
+					{
 						_keyPress = eKeyPress.Left;
+						good = true;
+					}
 					break;
 				case Key.Right:
 					if (_moveDirection != eKeyPress.Left)
+					{
 						_keyPress = eKeyPress.Right;
+						good = true;
+					}
 					break;
 			}
+			if (good)
+			{
+				if (_holdKey)
+				{
+					Common.HoldKey = true;//Включаем ускорение
+				}
+				else
+				{
+					_holdKey = true;
+				}
+			}
+		}
+		private void Window_KeyUp(object sender, KeyEventArgs e)
+		{
+			_holdKey = false;
+			Common.HoldKey = false;
 		}
 #endregion
 
@@ -112,5 +143,7 @@ namespace snake.Graphics
 			_frameTime = t;
 		}
 #endregion
+
+		
 	}
 }
