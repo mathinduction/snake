@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Shapes;
-//using System.Drawing;
+using System.Windows.Controls;
 
 namespace snake.Graphics
 {
@@ -25,7 +25,7 @@ namespace snake.Graphics
 		/// <summary>
 		/// Рисует пиксель заданного цвета
 		/// </summary>
-		public static Rectangle DrawPixel(Brush color)
+		public static Rectangle DrawPixel(double x, double y, Brush color)
 		{
 			Rectangle rect = new Rectangle();
 			rect.Fill = color;
@@ -33,6 +33,8 @@ namespace snake.Graphics
 			rect.Height = Common.PixelSize;
 			rect.Width = Common.PixelSize;
 
+			Canvas.SetLeft(rect, x);
+			Canvas.SetTop(rect, y);
 			return rect;
 		}
 	}

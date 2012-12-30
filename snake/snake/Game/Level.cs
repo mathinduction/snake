@@ -12,13 +12,40 @@ namespace snake.Game
 	public class Level
 	{
 		private ePixelType[,] _levelPixels = new ePixelType[Common.NumberPixelHeight,Common.NumberPixelWidth];
+		private List<Point> _startSnakeCoords = new List<Point>();
 
 		/// <summary>
 		/// обновляет уровень в соответствии с новыми координатами змейки
 		/// </summary>
-		public void Update(List<Point> snakeCoords)
+		public eSnakeMove Update(List<Point> snakeCoords)
 		{
-			
+			eSnakeMove sm = eSnakeMove.Normal;
+			switch (_levelPixels[(int)snakeCoords[0].X, (int)snakeCoords[0].Y])
+			{
+				case ePixelType.None:
+					sm = eSnakeMove.Normal;
+					break;
+				case ePixelType.Block:
+					return eSnakeMove.Died;
+				case ePixelType.SnakePart:
+					return eSnakeMove.Died;
+				case ePixelType.Food:
+					sm = eSnakeMove.Fed;
+					break;
+			}
+			for (int i = 0; i < _levelPixels.GetLength(0); i++)//Убираем старые записи о координатах змейки на карте уровня
+				for (int j = 0; j < _levelPixels.GetLength(0); j++)
+				{
+					if (_levelPixels[i, j] == ePixelType.SnakePart)
+						_levelPixels[i, j] = ePixelType.None;
+						
+				}
+			for (int i = 0; i < snakeCoords.Count; i++)//Записываем новые
+			{
+				_levelPixels[(int) snakeCoords[i].X, (int) snakeCoords[i].Y] = ePixelType.SnakePart;
+			}
+
+			return sm;
 		}
 		public void GenerateFood()
 		{
@@ -56,6 +83,10 @@ namespace snake.Game
 					else
 						_levelPixels[i, j] = ePixelType.None;
 				}
+
+			_startSnakeCoords.Add(new Point(7, 11));
+			_startSnakeCoords.Add(new Point(7, 12));
+			_startSnakeCoords.Add(new Point(7, 13));
 		}
 #region Properties
 		/// <summary>
@@ -65,6 +96,14 @@ namespace snake.Game
 		{
 			set { _levelPixels = value; }
 			get { return _levelPixels; }
+		}
+		/// <summary>
+		/// Стартовые кооординаты змейки
+		/// </summary>
+		public List<Point> StartSnakeCoords
+		{
+			set { _startSnakeCoords = value; }
+			get { return _startSnakeCoords; }
 		}
 #endregion
 	}

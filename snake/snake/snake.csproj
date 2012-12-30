@@ -76,6 +76,7 @@
       <DependentUpon>MainGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Graphics\Pixel.cs" />
+    <Compile Include="Graphics\TimeChecker.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

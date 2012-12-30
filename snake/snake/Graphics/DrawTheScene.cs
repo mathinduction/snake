@@ -46,20 +46,18 @@ namespace snake.Graphics
 					switch (level.LevelPixels[i, j])
 					{
 						case ePixelType.None:
-							rect = Pixel.DrawPixel(_colorNone);
+							rect = Pixel.DrawPixel(_levelPixelCoord[i, j].X, _levelPixelCoord[i, j].Y, _colorNone);
 							break;
 						case ePixelType.Block:
-							rect = Pixel.DrawPixel(_colorBlock);
+							rect = Pixel.DrawPixel(_levelPixelCoord[i, j].X, _levelPixelCoord[i, j].Y, _colorBlock);
 							break;
 						case ePixelType.Food:
-							rect = Pixel.DrawPixel(_colorFood);
+							rect = Pixel.DrawPixel(_levelPixelCoord[i, j].X, _levelPixelCoord[i, j].Y, _colorFood);
 							break;
 						case ePixelType.SnakePart:
-							rect = Pixel.DrawPixel(_colorSnake);
+							rect = Pixel.DrawPixel(_levelPixelCoord[i, j].X, _levelPixelCoord[i, j].Y, _colorSnake);
 							break;
 					}
-					Canvas.SetLeft(rect, _levelPixelCoord[i,j].X);
-					Canvas.SetTop(rect, _levelPixelCoord[i,j].Y);
 					canvas.Children.Add(rect);
 				}
 		}

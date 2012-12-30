@@ -27,6 +27,15 @@ namespace snake
 		Food,		//Пиксель с едой
 		SnakePart	//Пиксель с частью змейки
 	}
+	/// <summary>
+	/// Результат движение змейки
+	/// </summary>
+	public enum eSnakeMove
+	{
+		Normal,	//Обычное движение
+		Died,	//Врезался в блок/часть змейки
+		Fed		//Съел еду
+	}
 #endregion
 
 	/// <summary>
@@ -39,6 +48,9 @@ namespace snake
 		private const int _numberPixelHeight = 15;
 		private const int _numberPixelWidth = 15;
 		private const int _pixelSize = 10;
+
+		private const int _timeToMove = 1000;
+
 #endregion
 
 #region Properties
@@ -62,6 +74,13 @@ namespace snake
 		public static int PixelSize
 		{
 			get { return _pixelSize; }
+		}
+		/// <summary>
+		/// Время между двуме сдвигами змейки/обновлениями карты уровня
+		/// </summary>
+		public static int TimeToMove
+		{
+			get { return _timeToMove; }
 		}
 #endregion
 	}

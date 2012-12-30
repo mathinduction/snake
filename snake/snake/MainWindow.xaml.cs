@@ -28,8 +28,14 @@ namespace snake
 		private void buttonStart_Click(object sender, RoutedEventArgs e)
 		{
 			Graphics.MainGameWindow gameWindow = new MainGameWindow();
+			gameWindow.Closing += new System.ComponentModel.CancelEventHandler(gameWindow_Closing);
 			gameWindow.Show();
-			this.Close();
+			this.Visibility = Visibility.Collapsed;
+		}
+
+		void gameWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			this.Visibility = Visibility.Visible;
 		}
 	}
 }
