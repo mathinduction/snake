@@ -35,7 +35,7 @@ namespace snake.Game
 					break;
 			}
 			for (int i = 0; i < _levelPixels.GetLength(0); i++)//Убираем старые записи о координатах змейки на карте уровня
-				for (int j = 0; j < _levelPixels.GetLength(0); j++)
+				for (int j = 0; j < _levelPixels.GetLength(1); j++)
 				{
 					if (_levelPixels[i, j] == ePixelType.SnakePart)
 						_levelPixels[i, j] = ePixelType.None;
@@ -68,39 +68,41 @@ namespace snake.Game
 		/// </summary>
 		public void Start()
 		{
-			int [,] level = new int[,]//TODO хардкод
-			                	{
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-			                	}; 
+			string path = Common.PathLevels + "//" + "Level1.lvl";//TODO хардкод
+			string line;
+			System.IO.StreamReader file = new System.IO.StreamReader(path);
+			line = file.ReadLine();
+			_snakeStartDirection = (eKeyPress)int.Parse(line);
 
-			for (int i = 0; i < Common.NumberPixelHeight; i++)
-				for (int j = 0; j < Common.NumberPixelWidth; j++)
+			line = file.ReadLine();//TODO просто пропскаю 2 строчки
+			line = file.ReadLine();
+
+			for (int i = 0; i < _levelPixels.GetLength(0); i++)
+				for (int j = 0; j < _levelPixels.GetLength(1); j++)
 				{
-					if (level[i, j] == 1)
-						_levelPixels[i, j] = ePixelType.Block;
+					if ((line = file.ReadLine()) != null)
+					{
+						int d = int.Parse(line);
+						switch (d)
+						{
+							case 1:
+								_levelPixels[i, j] = ePixelType.Block;
+								break;
+							case 3:
+								_startSnakeCoord = new Point(i, j);
+								break;
+							default:
+								_levelPixels[i, j] = ePixelType.None;
+								break;
+						}	
+					}
 					else
-						_levelPixels[i, j] = ePixelType.None;
+						break;
 				}
-
-			_startSnakeCoord = new Point(7, 11);
-
-			_snakeStartDirection = eKeyPress.Up;
 		}
-
+		/// <summary>
+		/// Не рабоает!
+		/// </summary>
 		public void Resize()
 		{
 			ePixelType[,] levelPixels = new ePixelType[Common.NumberPixelHeight, Common.NumberPixelWidth];

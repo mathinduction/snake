@@ -23,8 +23,8 @@ namespace snake.Graphics
 #region Private
 		private Game.Snake _snake;//Змейка
 		private Game.Level _level = new Level();//Уровень
-		private eKeyPress _keyPress = eKeyPress.None;//Нажатая клавиша управления
-		private eKeyPress _moveDirection;
+		private eKeyPress _keyPress;//Нажатая клавиша управления
+		private eKeyPress _moveDirection;//Направление движения змейки
 		private long _frameTime = 0;//Число милисекунд, прошедших с последнего обновления карты уровня
 #endregion
 		public MainGameWindow()

@@ -1,0 +1,21 @@
+﻿<Window x:Class="snake.Editor.SaveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SaveWindow" Height="120" Width="300" ResizeMode="NoResize">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		
+		<TextBlock Grid.Column="0" Grid.Row="0" Margin="5">Название локации:</TextBlock>
+		<TextBox Name="textBoxNameLevel" Grid.Column="1" Grid.Row="0" Margin="5" Height="25"></TextBox>
+
+		<Button Name="butonSave" Grid.Column="0" Grid.Row="1" Height="25" Width="100" Click="butonSave_Click">Сохранить</Button>
+		<Button Name="buttonCancel" Grid.Column="1" Grid.Row="1" Height="25" Width="100" Click="buttonCancel_Click">Отменя</Button>
+	</Grid>
+</Window>

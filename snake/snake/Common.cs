@@ -11,21 +11,20 @@ namespace snake
 	/// </summary>
 	public enum eKeyPress
 	{
-		None = 0,
-		Up = 1,
-		Right = 2,
-		Down = 3,
-		Left = 4
+		Up = 0,
+		Right = 1,
+		Down = 2,
+		Left = 3
 	}
 	/// <summary>
 	/// Тип пикселя
 	/// </summary>
 	public enum ePixelType
 	{
-		None,		//Пустой пиксель
-		Block,		//Пиксель с блоком
-		Food,		//Пиксель с едой
-		SnakePart	//Пиксель с частью змейки
+		None = 0,		//Пустой пиксель
+		Block = 1,		//Пиксель с блоком
+		Food = 2,		//Пиксель с едой
+		SnakePart = 3	//Пиксель с частью змейки
 	}
 	/// <summary>
 	/// Результат движение змейки
@@ -50,6 +49,8 @@ namespace snake
 		private const int _pixelSize = 20;
 
 		private const int _timeToMove = 1000;
+
+		private const string _pathLevels = "Levels";
 
 #endregion
 
@@ -83,6 +84,13 @@ namespace snake
 		public static int TimeToMove
 		{
 			get { return _timeToMove; }
+		}
+		/// <summary>
+		/// Название папки, где хранятся файлы с картами уровня
+		/// </summary>
+		public static string PathLevels
+		{
+			get { return _pathLevels; }
 		}
 #endregion
 	}

@@ -21,6 +21,7 @@ namespace snake.Editor
 	{
 		private Game.Level _level = new Level();
 		private Point? _snakeStartCoord = new Point();
+		private eKeyPress _direction = eKeyPress.Up;
 
 		public EditorWindow()
 		{
@@ -113,12 +114,14 @@ namespace snake.Editor
 
 		private void buttonOpen_Click(object sender, RoutedEventArgs e)
 		{
-
+			//TODO
 		}
 
 		private void buttonSave_Click(object sender, RoutedEventArgs e)
 		{
 			if (!CheckForErrors()) return;
+			SaveWindow saveWindow = new SaveWindow(_level, _direction);
+			saveWindow.Show();
 		}
 
 		#endregion
@@ -209,6 +212,7 @@ namespace snake.Editor
 						MessageBox.Show("Недопустимое начальное положение змейки!", "Ошибка!");
 						return false;
 					}
+					_direction = eKeyPress.Up;
 					break;
 				case 1://Right
 					if (_snakeStartCoord.Value.X < 3)
@@ -216,6 +220,7 @@ namespace snake.Editor
 						MessageBox.Show("Недопустимое начальное положение змейки!", "Ошибка!");
 						return false;
 					}
+					_direction = eKeyPress.Right;
 					break;
 				case 2://Down
 					if (_snakeStartCoord.Value.Y < 3)
@@ -223,6 +228,7 @@ namespace snake.Editor
 						MessageBox.Show("Недопустимое начальное положение змейки!", "Ошибка!");
 						return false;
 					}
+					_direction = eKeyPress.Down;
 					break;
 				case 3://Left
 					if ((Common.NumberPixelWidth - _snakeStartCoord.Value.X) < 4)
@@ -230,6 +236,7 @@ namespace snake.Editor
 						MessageBox.Show("Недопустимое начальное положение змейки!", "Ошибка!");
 						return false;
 					}
+					_direction = eKeyPress.Left;
 					break;
 			}
 			return true;
