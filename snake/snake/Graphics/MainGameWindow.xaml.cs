@@ -28,6 +28,7 @@ namespace snake.Graphics
 		private long _frameTime = 0;//Число милисекунд, прошедших с последнего обновления карты уровня
 		private bool _holdKey = false;//Флаг удержания клавиши. Нужен для включения ускорения
 		private bool _pause = false;//Включена ли пауза
+		private int _victoryPoints = 0;//Победные очки
 #endregion
 		public MainGameWindow()
 		{
@@ -73,6 +74,8 @@ namespace snake.Graphics
 				case eSnakeMove.Fed:
 					_snake.LengthUp();
 					_level.GenerateFood();
+					_victoryPoints++;
+					textBlockVPoints.Text = _victoryPoints.ToString();
 					//TODO учитывать набранные очки
 					break;
 			}
