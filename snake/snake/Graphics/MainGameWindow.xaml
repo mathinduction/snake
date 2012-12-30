@@ -1,7 +1,12 @@
 ﻿<Window x:Class="snake.Graphics.MainGameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Snake" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Closing="Window_Closing" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
+        Title="Snake" SizeToContent="WidthAndHeight" ResizeMode="NoResize" 
+		Closing="Window_Closing" 
+		KeyDown="Window_KeyDown" 
+		KeyUp="Window_KeyUp"
+		LostKeyboardFocus="Window_LostKeyboardFocus"
+		GotKeyboardFocus="Window_GotKeyboardFocus">
     <Grid>
 		<Canvas Name="canvasGame" Background="Black">
 		</Canvas>

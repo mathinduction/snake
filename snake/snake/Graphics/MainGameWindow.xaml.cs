@@ -27,6 +27,7 @@ namespace snake.Graphics
 		private eKeyPress _moveDirection;//Направление движения змейки
 		private long _frameTime = 0;//Число милисекунд, прошедших с последнего обновления карты уровня
 		private bool _holdKey = false;//Флаг удержания клавиши. Нужен для включения ускорения
+		private bool _pause = false;//Включена ли пауза
 #endregion
 		public MainGameWindow()
 		{
@@ -48,6 +49,8 @@ namespace snake.Graphics
 		/// </summary>
 		private void OnFrame(object sender, EventArgs e)
 		{
+			if (_pause) return;
+			
 			DateTime dt = DateTime.Now;
 			long t = dt.Millisecond + dt.Second*1000 + dt.Minute*60*1000 + dt.Hour*60*60*1000;
 			if ((t - _frameTime) < Common.TimeToMove) return;
@@ -108,6 +111,9 @@ namespace snake.Graphics
 						good = true;
 					}
 					break;
+				case Key.Space:
+					Pause();
+					break;
 			}
 			if (good)
 			{
@@ -126,9 +132,21 @@ namespace snake.Graphics
 			_holdKey = false;
 			Common.HoldKey = false;
 		}
+
+		private void Window_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+		{
+			Pause(true);
+		}
+		private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+		{
+			Pause(false);
+		}
 #endregion
 
 #region Private	
+		/// <summary>
+		/// Установление начальных параметров игры
+		/// </summary>
 		private void StartGame()
 		{
 			_level.Start();//Стартовая карта уровня
@@ -142,8 +160,17 @@ namespace snake.Graphics
 			long t = dt.Millisecond + dt.Second * 1000 + dt.Minute * 60 * 1000 + dt.Hour * 60 * 60 * 1000;
 			_frameTime = t;
 		}
+		/// <summary>
+		/// Пауза
+		/// </summary>
+		private void Pause()
+		{
+			_pause = !_pause;
+		}
+		private void Pause(bool pause)
+		{
+			_pause = pause;
+		}
 #endregion
-
-		
 	}
 }
