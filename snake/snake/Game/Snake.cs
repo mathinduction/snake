@@ -11,10 +11,29 @@ namespace snake.Game
 		private List<Point> _snakeCoords = new List<Point>();
 		private int _length;//Текущая длина змейки
 #region Public
-		public Snake(List<Point> StartSnakeCoords)
+		public Snake(Point startSnakeCoord, eKeyPress direction)
 		{
 			_length = 3;
-			_snakeCoords = StartSnakeCoords;
+			_snakeCoords.Add(startSnakeCoord);
+			switch (direction)
+			{
+				case eKeyPress.Down:
+					_snakeCoords.Add(new Point(startSnakeCoord.X, startSnakeCoord.Y - 1));
+					_snakeCoords.Add(new Point(startSnakeCoord.X, startSnakeCoord.Y - 2));
+					break;
+				case eKeyPress.Left:
+					_snakeCoords.Add(new Point(startSnakeCoord.X + 1, startSnakeCoord.Y));
+					_snakeCoords.Add(new Point(startSnakeCoord.X + 2, startSnakeCoord.Y));
+					break;
+				case eKeyPress.Right:
+					_snakeCoords.Add(new Point(startSnakeCoord.X - 1, startSnakeCoord.Y));
+					_snakeCoords.Add(new Point(startSnakeCoord.X - 2, startSnakeCoord.Y));
+					break;
+				case eKeyPress.Up:
+					_snakeCoords.Add(new Point(startSnakeCoord.X, startSnakeCoord.Y + 1));
+					_snakeCoords.Add(new Point(startSnakeCoord.X, startSnakeCoord.Y + 2));
+					break;
+			}
 		}
 
 		/// <summary>

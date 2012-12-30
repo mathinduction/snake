@@ -47,15 +47,8 @@ namespace snake.Graphics
 		/// </summary>
 		private void OnFrame(object sender, EventArgs e)
 		{
-			/*AutoResetEvent autoEvent = new AutoResetEvent(false);
-			TimeChecker statusChecker = new TimeChecker(Common.TimeToMove);
-			TimerCallback tcb = statusChecker.CheckStatus;
-			Timer stateTimer = new Timer(tcb, autoEvent, 1000, 250);
-			autoEvent.WaitOne(1000, false);*/
-
 			DateTime dt = DateTime.Now;
 			long t = dt.Millisecond + dt.Second*1000 + dt.Minute*60*1000 + dt.Hour*60*60*1000;
-			//_frameTime = t - _frameTime;
 			if ((t - _frameTime) < Common.TimeToMove) return;
 			_frameTime = t;
 
@@ -78,32 +71,8 @@ namespace snake.Graphics
 					//TODO учитывать набранные очки
 					break;
 			}
-
-			//_keyPress = eKeyPress.None;//Ждём нажатия для следующего кадра
 		}
 
-		private void canvasGame_KeyDown(object sender, KeyEventArgs e)
-		{
-			switch(e.Key)
-			{
-				case Key.Up:
-					if (_moveDirection != eKeyPress.Down)
-						_keyPress = eKeyPress.Up;
-					break;
-				case Key.Down:
-					if (_moveDirection != eKeyPress.Up)
-						_keyPress = eKeyPress.Down;
-					break;
-				case Key.Left:
-					if (_moveDirection != eKeyPress.Right)
-						_keyPress = eKeyPress.Left;
-					break;
-				case Key.Right:
-					if (_moveDirection != eKeyPress.Left)
-						_keyPress = eKeyPress.Right;
-					break;
-			}
-		}
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
 			switch (e.Key)
@@ -131,9 +100,9 @@ namespace snake.Graphics
 #region Private	
 		private void StartGame()
 		{
-			_keyPress = eKeyPress.Up;//TODO хардкод	
 			_level.Start();//Стартовая карта уровня
-			_snake = new Snake(_level.StartSnakeCoords);//Стартовое положение змейки
+			_keyPress = _level.SnakeStartDirection;
+			_snake = new Snake(_level.StartSnakeCoord, _level.SnakeStartDirection);//Стартовое положение змейки
 			_level.Update(_snake.SnakeCoordinates);//Учитываем положение змейки
 			_level.GenerateFood();//Генерируем еду
 			DrawTheScene.Draw(_level, ref canvasGame);//Рисуем сцену

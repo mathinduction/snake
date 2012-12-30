@@ -12,7 +12,8 @@ namespace snake.Game
 	public class Level
 	{
 		private ePixelType[,] _levelPixels = new ePixelType[Common.NumberPixelHeight,Common.NumberPixelWidth];
-		private List<Point> _startSnakeCoords = new List<Point>();
+		private Point _startSnakeCoord = new Point();
+		private eKeyPress _snakeStartDirection;
 
 		/// <summary>
 		/// обновляет уровень в соответствии с новыми координатами змейки
@@ -84,9 +85,9 @@ namespace snake.Game
 						_levelPixels[i, j] = ePixelType.None;
 				}
 
-			_startSnakeCoords.Add(new Point(7, 11));
-			_startSnakeCoords.Add(new Point(7, 12));
-			_startSnakeCoords.Add(new Point(7, 13));
+			_startSnakeCoord = new Point(7, 11);
+
+			_snakeStartDirection = eKeyPress.Up;
 		}
 #region Properties
 		/// <summary>
@@ -100,10 +101,18 @@ namespace snake.Game
 		/// <summary>
 		/// Стартовые кооординаты змейки
 		/// </summary>
-		public List<Point> StartSnakeCoords
+		public Point StartSnakeCoord
 		{
-			set { _startSnakeCoords = value; }
-			get { return _startSnakeCoords; }
+			set { _startSnakeCoord = value; }
+			get { return _startSnakeCoord; }
+		}
+		/// <summary>
+		/// Стартовое направление движения змейки
+		/// </summary>
+		public eKeyPress SnakeStartDirection
+		{
+			set { _snakeStartDirection = value; }
+			get { return _snakeStartDirection; }
 		}
 #endregion
 	}
