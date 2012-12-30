@@ -32,6 +32,8 @@ namespace snake.Graphics
 			rect.Stroke = _stroke;
 			rect.Height = Common.PixelSize;
 			rect.Width = Common.PixelSize;
+			rect.RadiusX = 2;
+			rect.RadiusY = 2;
 
 			Canvas.SetLeft(rect, x);
 			Canvas.SetTop(rect, y);
