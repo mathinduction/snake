@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using snake.Editor;
 using snake.Graphics;
 
 namespace snake
@@ -34,6 +35,19 @@ namespace snake
 		}
 
 		void gameWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			this.Visibility = Visibility.Visible;
+		}
+
+		private void buttonEditor_Click(object sender, RoutedEventArgs e)
+		{
+			Editor.EditorWindow editorWindow = new EditorWindow();
+			editorWindow.Closing += new System.ComponentModel.CancelEventHandler(editorWindow_Closing);
+			editorWindow.Show();
+			this.Visibility = Visibility.Collapsed;
+		}
+
+		void editorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			this.Visibility = Visibility.Visible;
 		}

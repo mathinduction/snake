@@ -45,8 +45,8 @@ namespace snake
 	{
 #region Private
 
-		private const int _numberPixelHeight = 15;
-		private const int _numberPixelWidth = 15;
+		private static int _numberPixelHeight = 15;
+		private static int _numberPixelWidth = 15;
 		private const int _pixelSize = 10;
 
 		private const int _timeToMove = 1000;
@@ -59,6 +59,7 @@ namespace snake
 		/// </summary>
 		public static int NumberPixelHeight
 		{
+			set { _numberPixelHeight = value; }
 			get { return _numberPixelHeight; }
 		}
 		/// <summary>
@@ -66,6 +67,7 @@ namespace snake
 		/// </summary>
 		public static int NumberPixelWidth
 		{
+			set { _numberPixelWidth = value; }
 			get { return _numberPixelWidth; }
 		}
 		/// <summary>

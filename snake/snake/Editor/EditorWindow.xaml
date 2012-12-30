@@ -1,0 +1,45 @@
+﻿<Window x:Class="snake.Editor.EditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EditorWindow" Width="350" Height="300" SizeToContent="WidthAndHeight">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition Width="250" />
+		</Grid.ColumnDefinitions>
+		<Canvas Grid.Column="0" Name="canvasLevelMap" Background="Black" MouseLeftButtonDown="canvasLevelMap_MouseLeftButtonDown"></Canvas>
+
+		<StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="30" />
+					<RowDefinition Height="30" />
+					<RowDefinition Height="30" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="100"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBlock Grid.Row="0" Grid.Column="0">Число блоков в ширину:</TextBlock>
+				<TextBox Name="textBoxNumberPixelWidth" Grid.Row="0" Grid.Column="1" TextChanged="textBoxNumberPixelWidth_TextChanged" Width="70" Height="20"></TextBox>
+
+				<TextBlock Grid.Row="1" Grid.Column="0">Число блоков в высоту:</TextBlock>
+				<TextBox Name="textBoxNumberPixelHeight" Grid.Row="1" Grid.Column="1" TextChanged="textBoxNumberPixelHeight_TextChanged" Width="70" Height="20"></TextBox>
+
+				<TextBlock Grid.Row="2" Grid.Column="0">Направление движения:</TextBlock>
+				<ComboBox Grid.Row="2" Grid.Column="1" Name="comboBoxDirection" Width="90" Height="20"></ComboBox>
+			</Grid>
+
+			<CheckBox Name="checkBoxGenerateBorderBlocks" IsChecked="True" IsEnabled="False">Авто-генерация блоков по краю</CheckBox>
+
+			<StackPanel>
+				<RadioButton Name="radioButtonBlock" Margin="5" IsChecked="True">Блоки</RadioButton>
+				<RadioButton Name="radioButtonSnakeStart" Margin="5">Начальное положение змейки</RadioButton>
+			</StackPanel>
+			
+			
+		</StackPanel>
+		
+	</Grid>
+</Window>
