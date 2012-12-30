@@ -22,23 +22,24 @@
 				</Grid.ColumnDefinitions>
 
 				<TextBlock Grid.Row="0" Grid.Column="0">Число блоков в ширину:</TextBlock>
-				<TextBox Name="textBoxNumberPixelWidth" Grid.Row="0" Grid.Column="1" TextChanged="textBoxNumberPixelWidth_TextChanged" Width="70" Height="20"></TextBox>
+				<TextBox Name="textBoxNumberPixelWidth" Grid.Row="0" Grid.Column="1" KeyDown="textBoxNumberPixelWidth_KeyDown" IsEnabled="False" Width="70" Height="20"></TextBox>
 
 				<TextBlock Grid.Row="1" Grid.Column="0">Число блоков в высоту:</TextBlock>
-				<TextBox Name="textBoxNumberPixelHeight" Grid.Row="1" Grid.Column="1" TextChanged="textBoxNumberPixelHeight_TextChanged" Width="70" Height="20"></TextBox>
+				<TextBox Name="textBoxNumberPixelHeight" Grid.Row="1" Grid.Column="1" KeyDown="textBoxNumberPixelHeight_KeyDown" IsEnabled="False" Width="70" Height="20"></TextBox>
 
 				<TextBlock Grid.Row="2" Grid.Column="0">Направление движения:</TextBlock>
 				<ComboBox Grid.Row="2" Grid.Column="1" Name="comboBoxDirection" Width="90" Height="20"></ComboBox>
 			</Grid>
 
-			<CheckBox Name="checkBoxGenerateBorderBlocks" IsChecked="True" IsEnabled="False">Авто-генерация блоков по краю</CheckBox>
+			<CheckBox Name="checkBoxGenerateBorderBlocks" IsChecked="True" IsEnabled="False" Click="checkBoxGenerateBorderBlocks_Click">Авто-генерация блоков по краю</CheckBox>
 
 			<StackPanel>
 				<RadioButton Name="radioButtonBlock" Margin="5" IsChecked="True">Блоки</RadioButton>
 				<RadioButton Name="radioButtonSnakeStart" Margin="5">Начальное положение змейки</RadioButton>
 			</StackPanel>
 			
-			
+			<Button Name="buttonOpen" Width="100" Margin="5" Click="buttonOpen_Click">Открыть</Button>
+			<Button Name="buttonSave" Width="100" Margin="5" Click="buttonSave_Click">Сохранить</Button>
 		</StackPanel>
 		
 	</Grid>

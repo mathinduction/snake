@@ -15,7 +15,7 @@ namespace snake.Graphics
 	/// </summary>
 	public static class DrawTheScene
 	{
-		private static Point[,] _levelPixelCoord = new Point[Common.NumberPixelHeight, Common.NumberPixelWidth];//Координаты каждого пикселя в окне
+		private static Point[,] _levelPixelCoord = new Point[Common.NumberPixelWidth, Common.NumberPixelHeight];//Координаты каждого пикселя в окне
 		private static Brush _colorNone = Brushes.Black;//Цвет пустого пикселя
 		private static Brush _colorBlock = Brushes.White;//Цвет пикселя с блоком
 		private static Brush _colorFood = Brushes.Yellow;//Цвет пикселя с едой
@@ -23,10 +23,10 @@ namespace snake.Graphics
 
 		static DrawTheScene()
 		{
-			for (int i = 0; i < Common.NumberPixelHeight; i++)
+			for (int i = 0; i < Common.NumberPixelWidth; i++)
 			{
 				int x = i*Common.PixelSize;
-				for (int j = 0; j < Common.NumberPixelWidth; j++)
+				for (int j = 0; j < Common.NumberPixelHeight; j++)
 				{
 					int y = j*Common.PixelSize;
 					_levelPixelCoord[i,j] = new Point(x,y);

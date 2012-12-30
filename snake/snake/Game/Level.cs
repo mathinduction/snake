@@ -11,7 +11,7 @@ namespace snake.Game
 	/// </summary>
 	public class Level
 	{
-		private ePixelType[,] _levelPixels = new ePixelType[Common.NumberPixelHeight,Common.NumberPixelWidth];
+		private ePixelType[,] _levelPixels = new ePixelType[Common.NumberPixelWidth, Common.NumberPixelHeight];
 		private Point _startSnakeCoord = new Point();
 		private eKeyPress _snakeStartDirection;
 
@@ -53,6 +53,17 @@ namespace snake.Game
 			
 		}
 		/// <summary>
+		/// Инициальзирует пустую карту
+		/// </summary>
+		public void Init()
+		{
+			for (int i = 0; i < _levelPixels.GetLength(0); i++)
+				for (int j = 0; j < _levelPixels.GetLength(1); j++)
+				{
+					_levelPixels[i,j] = ePixelType.None;
+				}
+		}
+		/// <summary>
 		/// Стартовая карта
 		/// </summary>
 		public void Start()
@@ -88,6 +99,20 @@ namespace snake.Game
 			_startSnakeCoord = new Point(7, 11);
 
 			_snakeStartDirection = eKeyPress.Up;
+		}
+
+		public void Resize()
+		{
+			ePixelType[,] levelPixels = new ePixelType[Common.NumberPixelHeight, Common.NumberPixelWidth];
+			for (int i = 0; i < levelPixels.GetLength(0); i++)
+				for (int j = 0; j < levelPixels.GetLength(1); j++)
+				{
+					if (i < _levelPixels.GetLength(0) && j < _levelPixels.GetLength(1))
+					{
+						levelPixels[i, j] = _levelPixels[i,j];
+					}
+				}
+			_levelPixels = levelPixels;
 		}
 #region Properties
 		/// <summary>

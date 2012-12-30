@@ -11,11 +11,11 @@ namespace snake
 	/// </summary>
 	public enum eKeyPress
 	{
-		None,
-		Up,
-		Right,
-		Down,
-		Left
+		None = 0,
+		Up = 1,
+		Right = 2,
+		Down = 3,
+		Left = 4
 	}
 	/// <summary>
 	/// Тип пикселя
@@ -45,9 +45,9 @@ namespace snake
 	{
 #region Private
 
-		private static int _numberPixelHeight = 15;
+		private static int _numberPixelHeight = 20;
 		private static int _numberPixelWidth = 15;
-		private const int _pixelSize = 10;
+		private const int _pixelSize = 20;
 
 		private const int _timeToMove = 1000;
 
