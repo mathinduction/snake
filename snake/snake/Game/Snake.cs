@@ -47,7 +47,7 @@ namespace snake.Game
 			{
 				_snakeCoords[i] = _snakeCoords[i - 1];
 			}
-			switch (key)
+			switch (key)//Выставляем новую координату для "головы"
 			{
 				case eKeyPress.Down:
 					Point p1 = new Point(_snakeCoords[0].X, _snakeCoords[0].Y + 1);
@@ -66,6 +66,24 @@ namespace snake.Game
 					_snakeCoords[0] = p4;
 					break;
 			}
+			//Для "порталов" по караям экрана
+			if (_snakeCoords[0].X < 0)
+			{
+				_snakeCoords[0] = new Point(Common.NumberPixelWidth - 1, _snakeCoords[0].Y);
+			}
+			if (_snakeCoords[0].X >= Common.NumberPixelWidth)
+			{
+				_snakeCoords[0] = new Point(0, _snakeCoords[0].Y);
+			}
+			if (_snakeCoords[0].Y < 0)
+			{
+				_snakeCoords[0] = new Point(_snakeCoords[0].X, Common.NumberPixelHeight - 1);
+			}
+			if (_snakeCoords[0].Y >= Common.NumberPixelHeight)
+			{
+				_snakeCoords[0] = new Point(_snakeCoords[0].X, 0);
+			}
+
 			if (_length > _snakeCoords.Count)//Если змейка увеличилась в длине
 			{
 				_snakeCoords.Add(newPart);
@@ -92,6 +110,7 @@ namespace snake.Game
 		/// </summary>
 		public List<Point> SnakeCoordinates
 		{
+			set { _snakeCoords = value; }
 			get { return _snakeCoords; }
 		}
 #endregion

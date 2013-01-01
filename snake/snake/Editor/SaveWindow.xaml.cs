@@ -19,7 +19,7 @@ namespace snake.Editor
 	/// </summary>
 	public partial class SaveWindow : Window
 	{
-		private Game.Level _level = new Level();
+		private Game.Level _level = new Level(Common.NumberPixelWidth, Common.NumberPixelHeight);
 		private eKeyPress _direction;
 		public SaveWindow(Game.Level level, eKeyPress direction)
 		{

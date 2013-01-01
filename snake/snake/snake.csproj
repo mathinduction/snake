@@ -68,6 +68,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Graphics\PixelArt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,6 +94,9 @@
       <DependentUpon>MainGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Graphics\Pixel.cs" />
+    <Compile Include="Graphics\PixelArt.xaml.cs">
+      <DependentUpon>PixelArt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Graphics\TimeChecker.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -11,10 +11,29 @@ namespace snake.Game
 	/// </summary>
 	public class Level
 	{
-		private ePixelType[,] _levelPixels = new ePixelType[Common.NumberPixelWidth, Common.NumberPixelHeight];
+		private int _width;
+		private int _heigth;
+		private ePixelType[,] _levelPixels;
 		private Point _startSnakeCoord = new Point();
 		private eKeyPress _snakeStartDirection;
 
+		public Level(int Width, int Heigth)
+		{
+			_width = Width;
+			_heigth = Heigth;
+			_levelPixels = new ePixelType[_width,_heigth];
+		}
+		/// <summary>
+		/// Инициальзирует пустую карту
+		/// </summary>
+		public void Init()
+		{
+			for (int i = 0; i < _levelPixels.GetLength(0); i++)
+				for (int j = 0; j < _levelPixels.GetLength(1); j++)
+				{
+					_levelPixels[i, j] = ePixelType.None;
+				}
+		}
 		/// <summary>
 		/// обновляет уровень в соответствии с новыми координатами змейки
 		/// </summary>
@@ -66,22 +85,11 @@ namespace snake.Game
 			_levelPixels[x, y] = ePixelType.Food;
 		}
 		/// <summary>
-		/// Инициальзирует пустую карту
-		/// </summary>
-		public void Init()
-		{
-			for (int i = 0; i < _levelPixels.GetLength(0); i++)
-				for (int j = 0; j < _levelPixels.GetLength(1); j++)
-				{
-					_levelPixels[i,j] = ePixelType.None;
-				}
-		}
-		/// <summary>
 		/// Стартовая карта
 		/// </summary>
-		public void Start()
+		public void Start(string levelName)
 		{
-			string path = Common.PathLevels + "//" + "Level1.lvl";//TODO хардкод
+			string path = Common.PathLevels + "//" + levelName + ".lvl";
 			string line;
 			System.IO.StreamReader file = new System.IO.StreamReader(path);
 			line = file.ReadLine();
@@ -101,6 +109,9 @@ namespace snake.Game
 							case 1:
 								_levelPixels[i, j] = ePixelType.Block;
 								break;
+							case 2:
+								_levelPixels[i, j] = ePixelType.Food;
+								break;
 							case 3:
 								_startSnakeCoord = new Point(i, j);
 								break;
@@ -118,7 +129,7 @@ namespace snake.Game
 		/// </summary>
 		public void Resize()
 		{
-			ePixelType[,] levelPixels = new ePixelType[Common.NumberPixelHeight, Common.NumberPixelWidth];
+			ePixelType[,] levelPixels = new ePixelType[_width, _heigth];
 			for (int i = 0; i < levelPixels.GetLength(0); i++)
 				for (int j = 0; j < levelPixels.GetLength(1); j++)
 				{

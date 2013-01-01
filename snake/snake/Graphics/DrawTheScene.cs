@@ -13,32 +13,24 @@ namespace snake.Graphics
 	/// <summary>
 	/// Класс для отрисовки сцены
 	/// </summary>
-	public static class DrawTheScene
+	public  class DrawTheScene
 	{
-		private static Point[,] _levelPixelCoord = new Point[Common.NumberPixelWidth, Common.NumberPixelHeight];//Координаты каждого пикселя в окне
-		private static Brush _colorNone = Brushes.Black;//Цвет пустого пикселя
-		private static Brush _colorBlock = Brushes.White;//Цвет пикселя с блоком
-		private static Brush _colorFood = Brushes.Yellow;//Цвет пикселя с едой
-		private static Brush _colorSnake = Brushes.YellowGreen;//Цвет пикселя с частью змейки
+		private Point[,] _levelPixelCoord;//Координаты каждого пикселя в окне
+		private Brush _colorNone = Brushes.Black;//Цвет пустого пикселя
+		private Brush _colorBlock = Brushes.White;//Цвет пикселя с блоком
+		private Brush _colorFood = Brushes.Yellow;//Цвет пикселя с едой
+		private Brush _colorSnake = Brushes.YellowGreen;//Цвет пикселя с частью змейки
 
-		static DrawTheScene()
+		public DrawTheScene(int width, int heigth)
 		{
-			for (int i = 0; i < Common.NumberPixelWidth; i++)
-			{
-				int x = i*Common.PixelSize;
-				for (int j = 0; j < Common.NumberPixelHeight; j++)
-				{
-					int y = j*Common.PixelSize;
-					_levelPixelCoord[i,j] = new Point(x,y);
-				}
-			}
+			CalculateCoords(width, heigth);
 		}
-
 		/// <summary>
-		/// Отрисовка
+		/// Отрисовка.
 		/// </summary>
-		public static void Draw(Game.Level level, ref Canvas canvas)
+		public void Draw(Game.Level level, ref Canvas canvas)
 		{
+			if (_levelPixelCoord == null) return;
 			for (int i = 0; i < level.LevelPixels.GetLength(0); i++)
 				for (int j = 0; j < level.LevelPixels.GetLength(1); j++)
 				{
@@ -60,6 +52,23 @@ namespace snake.Graphics
 					}
 					canvas.Children.Add(rect);
 				}
+		}
+		/// <summary>
+		/// Вычисляем координаты пикселей в окне заданого размера
+		/// </summary>
+		private void CalculateCoords(int width, int heigth)
+		{
+			_levelPixelCoord = new Point[width,heigth];
+
+			for (int i = 0; i < _levelPixelCoord.GetLength(0); i++)
+			{
+				int x = i * Common.PixelSize;
+				for (int j = 0; j < _levelPixelCoord.GetLength(1); j++)
+				{
+					int y = j * Common.PixelSize;
+					_levelPixelCoord[i, j] = new Point(x, y);
+				}
+			}
 		}
 	}
 }

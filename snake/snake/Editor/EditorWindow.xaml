@@ -35,6 +35,7 @@
 
 			<StackPanel>
 				<RadioButton Name="radioButtonBlock" Margin="5" IsChecked="True">Блоки</RadioButton>
+				<RadioButton Name="radioButtonFood" Margin="5">Еда</RadioButton>
 				<RadioButton Name="radioButtonSnakeStart" Margin="5">Начальное положение змейки</RadioButton>
 			</StackPanel>
 			

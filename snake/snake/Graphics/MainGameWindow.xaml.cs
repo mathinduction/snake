@@ -22,13 +22,15 @@ namespace snake.Graphics
 	{
 #region Private
 		private Game.Snake _snake;//Змейка
-		private Game.Level _level = new Level();//Уровень
+		private Game.Level _level;//Уровень
 		private eKeyPress _keyPress;//Нажатая клавиша управления
 		private eKeyPress _moveDirection;//Направление движения змейки
 		private long _frameTime = 0;//Число милисекунд, прошедших с последнего обновления карты уровня
 		private bool _holdKey = false;//Флаг удержания клавиши. Нужен для включения ускорения
 		private bool _pause = false;//Включена ли пауза
 		private int _victoryPoints = 0;//Победные очки
+		private DrawTheScene _drawer;//Рисовалищик
+		private PixelArt _pixelArt;
 #endregion
 		public MainGameWindow()
 		{
@@ -37,6 +39,7 @@ namespace snake.Graphics
 			canvasGame.Width = Common.NumberPixelWidth * Common.PixelSize;
 			canvasGame.Height = Common.NumberPixelHeight * Common.PixelSize;
 
+			_drawer = new DrawTheScene(Common.NumberPixelWidth, Common.NumberPixelHeight);
 			StartGame();
 		}
 
@@ -61,7 +64,7 @@ namespace snake.Graphics
 			_moveDirection = _keyPress;
 			_snake.Move(_moveDirection);//Двигаем змейку
 			eSnakeMove sm = _level.Update(_snake.SnakeCoordinates);//Обновляем карту уровня
-			DrawTheScene.Draw(_level, ref canvasGame);//Перерисовываем сцену
+			_drawer.Draw(_level, ref canvasGame);//Перерисовываем сцену
 
 			switch (sm)//Учитываем результат движения змейки
 			{
@@ -76,7 +79,6 @@ namespace snake.Graphics
 					_level.GenerateFood();
 					_victoryPoints++;
 					textBlockVPoints.Text = _victoryPoints.ToString();
-					//TODO учитывать набранные очки
 					break;
 			}
 		}
@@ -152,12 +154,13 @@ namespace snake.Graphics
 		/// </summary>
 		private void StartGame()
 		{
-			_level.Start();//Стартовая карта уровня
+			_level = new Level(Common.NumberPixelWidth, Common.NumberPixelHeight);
+			_level.Start("Level1");//Стартовая карта уровня //TODO хардкод
 			_keyPress = _level.SnakeStartDirection;
 			_snake = new Snake(_level.StartSnakeCoord, _level.SnakeStartDirection);//Стартовое положение змейки
 			_level.Update(_snake.SnakeCoordinates);//Учитываем положение змейки
 			_level.GenerateFood();//Генерируем еду
-			DrawTheScene.Draw(_level, ref canvasGame);//Рисуем сцену
+			_drawer.Draw(_level, ref canvasGame);//Рисуем сцену
 
 			DateTime dt = DateTime.Now;
 			long t = dt.Millisecond + dt.Second * 1000 + dt.Minute * 60 * 1000 + dt.Hour * 60 * 60 * 1000;
@@ -168,11 +171,30 @@ namespace snake.Graphics
 		/// </summary>
 		private void Pause()
 		{
-			_pause = !_pause;
+			Pause(!_pause);
 		}
 		private void Pause(bool pause)
 		{
+			if (_pause && pause) return;
 			_pause = pause;
+			if (_pause)
+			{
+				_pixelArt = new PixelArt(PixelArt.eArts.Pause);
+				_pixelArt.Closed += new EventHandler(_pixelArt_Closed);
+				_pixelArt.Show();
+				this.Visibility = Visibility.Collapsed;
+			}
+			else
+			{	
+				
+			}
+		}
+
+		void _pixelArt_Closed(object sender, EventArgs e)
+		{
+			if (_pixelArt != null)
+				_pixelArt.StopPauseArt();
+			this.Visibility = Visibility.Visible;
 		}
 #endregion
 	}

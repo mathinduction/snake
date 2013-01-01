@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using snake.Game;
+using snake.Graphics;
 
 namespace snake.Editor
 {
@@ -19,9 +20,10 @@ namespace snake.Editor
 	/// </summary>
 	public partial class EditorWindow : Window
 	{
-		private Game.Level _level = new Level();
+		private Game.Level _level = new Level(Common.NumberPixelWidth, Common.NumberPixelHeight);
 		private Point? _snakeStartCoord = new Point();
 		private eKeyPress _direction = eKeyPress.Up;
+		private DrawTheScene _drawer;//Рисовалищик
 
 		public EditorWindow()
 		{
@@ -42,6 +44,7 @@ namespace snake.Editor
 			comboBoxDirection.SelectedIndex = 0;
 
 			_level.Init();
+			_drawer = new DrawTheScene(Common.NumberPixelWidth, Common.NumberPixelHeight);
 			DrawBorderBlocks((bool) checkBoxGenerateBorderBlocks.IsChecked);
 			DrawGrid();
 		}
@@ -58,7 +61,7 @@ namespace snake.Editor
 				else
 					_level.LevelPixels[(int) pixel.X, (int) pixel.Y] = ePixelType.Block;
 			}
-			else
+			else if (radioButtonSnakeStart.IsChecked == true)
 			{
 				if (_snakeStartCoord.HasValue)
 				{
@@ -67,7 +70,11 @@ namespace snake.Editor
 				_level.LevelPixels[(int) pixel.X, (int) pixel.Y] = ePixelType.SnakePart;
 				_snakeStartCoord = pixel;
 			}
-			Graphics.DrawTheScene.Draw(_level, ref canvasLevelMap);
+			else if (radioButtonFood.IsChecked == true)
+			{
+				_level.LevelPixels[(int)pixel.X, (int)pixel.Y] = ePixelType.Food;
+			}
+			_drawer.Draw(_level, ref canvasLevelMap);
 			DrawGrid();
 		}
 
@@ -190,7 +197,7 @@ namespace snake.Editor
 				_level.LevelPixels[i, 0] = type;
 				_level.LevelPixels[i, Common.NumberPixelHeight - 1] = type;
 			}
-			Graphics.DrawTheScene.Draw(_level, ref canvasLevelMap);
+			_drawer.Draw(_level, ref canvasLevelMap);
 		}
 
 		/// <summary>
