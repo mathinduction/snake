@@ -5,7 +5,7 @@
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition />
-			<ColumnDefinition Width="250" />
+			<ColumnDefinition Width="275" />
 		</Grid.ColumnDefinitions>
 		<Canvas Grid.Column="0" Name="canvasLevelMap" Background="Black" MouseLeftButtonDown="canvasLevelMap_MouseLeftButtonDown"></Canvas>
 
@@ -15,10 +15,11 @@
 					<RowDefinition Height="30" />
 					<RowDefinition Height="30" />
 					<RowDefinition Height="30" />
+					<RowDefinition Height="30" />
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
-					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="90"/>
 				</Grid.ColumnDefinitions>
 
 				<TextBlock Grid.Row="0" Grid.Column="0">Число блоков в ширину:</TextBlock>
@@ -27,16 +28,20 @@
 				<TextBlock Grid.Row="1" Grid.Column="0">Число блоков в высоту:</TextBlock>
 				<TextBox Name="textBoxNumberPixelHeight" Grid.Row="1" Grid.Column="1" KeyDown="textBoxNumberPixelHeight_KeyDown" IsEnabled="False" Width="70" Height="20"></TextBox>
 
-				<TextBlock Grid.Row="2" Grid.Column="0">Направление движения:</TextBlock>
+				<TextBlock Grid.Row="2" Grid.Column="0">Направление движения (player):</TextBlock>
 				<ComboBox Grid.Row="2" Grid.Column="1" Name="comboBoxDirection" Width="90" Height="20"></ComboBox>
+
+				<TextBlock Grid.Row="3" Grid.Column="0">Направление движения (foe):</TextBlock>
+				<ComboBox Grid.Row="3" Grid.Column="1" Name="comboBoxFoeDirection" Width="90" Height="20"></ComboBox>
 			</Grid>
 
-			<CheckBox Name="checkBoxGenerateBorderBlocks" IsChecked="True" IsEnabled="False" Click="checkBoxGenerateBorderBlocks_Click">Авто-генерация блоков по краю</CheckBox>
+			<CheckBox Name="checkBoxGenerateBorderBlocks" IsChecked="True" Click="checkBoxGenerateBorderBlocks_Click">Авто-генерация блоков по краю</CheckBox>
 
 			<StackPanel>
 				<RadioButton Name="radioButtonBlock" Margin="5" IsChecked="True">Блоки</RadioButton>
 				<RadioButton Name="radioButtonFood" Margin="5">Еда</RadioButton>
 				<RadioButton Name="radioButtonSnakeStart" Margin="5">Начальное положение змейки</RadioButton>
+				<RadioButton Name="radioButtonFoeSnakeStart" Margin="5">Начальное положение змейки-конкурента</RadioButton>
 			</StackPanel>
 			
 			<Button Name="buttonOpen" Width="100" Margin="5" Click="buttonOpen_Click">Открыть</Button>

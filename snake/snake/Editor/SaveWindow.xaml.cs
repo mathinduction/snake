@@ -21,11 +21,14 @@ namespace snake.Editor
 	{
 		private Game.Level _level = new Level(Common.NumberPixelWidth, Common.NumberPixelHeight);
 		private eKeyPress _direction;
-		public SaveWindow(Game.Level level, eKeyPress direction)
+		private eKeyPress _foeDirection;
+
+		public SaveWindow(Game.Level level, eKeyPress direction, eKeyPress foeDirection)
 		{
 			InitializeComponent();
 			_level = level;
 			_direction = direction;
+			_foeDirection = foeDirection;
 		}
 
 		private void butonSave_Click(object sender, RoutedEventArgs e)
@@ -52,6 +55,7 @@ namespace snake.Editor
 				using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
 				{
 					file.WriteLine(((int)_direction).ToString());
+					file.WriteLine(((int)_foeDirection).ToString());
 					file.WriteLine(_level.LevelPixels.GetLength(0));
 					file.WriteLine(_level.LevelPixels.GetLength(1));
 					for (int i = 0; i < _level.LevelPixels.GetLength(0); i++)

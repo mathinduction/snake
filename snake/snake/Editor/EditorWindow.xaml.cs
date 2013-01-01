@@ -21,8 +21,10 @@ namespace snake.Editor
 	public partial class EditorWindow : Window
 	{
 		private Game.Level _level = new Level(Common.NumberPixelWidth, Common.NumberPixelHeight);
-		private Point? _snakeStartCoord = new Point();
+		private Point? _snakeStartCoord;
+		private Point? _snakeFoeStartCoord;
 		private eKeyPress _direction = eKeyPress.Up;
+		private eKeyPress _foeDirection = eKeyPress.Up;
 		private DrawTheScene _drawer;//Рисовалищик
 
 		public EditorWindow()
@@ -42,6 +44,13 @@ namespace snake.Editor
 			comboBoxDirection.Items.Add("Влево");
 
 			comboBoxDirection.SelectedIndex = 0;
+
+			comboBoxFoeDirection.Items.Add("Вверх");
+			comboBoxFoeDirection.Items.Add("Вправо");
+			comboBoxFoeDirection.Items.Add("Вниз");
+			comboBoxFoeDirection.Items.Add("Влево");
+
+			comboBoxFoeDirection.SelectedIndex = 0;
 
 			_level.Init();
 			_drawer = new DrawTheScene(Common.NumberPixelWidth, Common.NumberPixelHeight);
@@ -69,6 +78,15 @@ namespace snake.Editor
 				}
 				_level.LevelPixels[(int) pixel.X, (int) pixel.Y] = ePixelType.SnakePart;
 				_snakeStartCoord = pixel;
+			}
+			else if (radioButtonFoeSnakeStart.IsChecked == true)
+			{
+				if (_snakeFoeStartCoord.HasValue)
+				{
+					_level.LevelPixels[(int)_snakeFoeStartCoord.Value.X, (int)_snakeFoeStartCoord.Value.Y] = ePixelType.None;
+				}
+				_level.LevelPixels[(int)pixel.X, (int)pixel.Y] = ePixelType.FoeSnakePart;
+				_snakeFoeStartCoord = pixel;
 			}
 			else if (radioButtonFood.IsChecked == true)
 			{
@@ -127,7 +145,9 @@ namespace snake.Editor
 		private void buttonSave_Click(object sender, RoutedEventArgs e)
 		{
 			if (!CheckForErrors()) return;
-			SaveWindow saveWindow = new SaveWindow(_level, _direction);
+			_direction = (eKeyPress)comboBoxDirection.SelectedIndex;
+			_foeDirection = (eKeyPress)comboBoxFoeDirection.SelectedIndex;
+			SaveWindow saveWindow = new SaveWindow(_level, _direction, _foeDirection);
 			saveWindow.Show();
 		}
 
@@ -209,6 +229,11 @@ namespace snake.Editor
 			if (!_snakeStartCoord.HasValue)
 			{
 				MessageBox.Show("Не указано начальное положение змейки", "Ошибка!");
+				return false;
+			}
+			if (!_snakeFoeStartCoord.HasValue)
+			{
+				MessageBox.Show("Не указано начальное положение змейки-конкурента", "Ошибка!");
 				return false;
 			}
 			switch (comboBoxDirection.SelectedIndex)

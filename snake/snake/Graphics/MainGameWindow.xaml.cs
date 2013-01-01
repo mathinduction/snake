@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using snake.AI;
 using snake.Game;
 
 namespace snake.Graphics
@@ -22,6 +23,8 @@ namespace snake.Graphics
 	{
 #region Private
 		private Game.Snake _snake;//Змейка
+		private Game.Snake _foeSnake;//Змейка-конкурент
+		private AI.SnakeAI _snakeAi;
 		private Game.Level _level;//Уровень
 		private eKeyPress _keyPress;//Нажатая клавиша управления
 		private eKeyPress _moveDirection;//Направление движения змейки
@@ -63,7 +66,9 @@ namespace snake.Graphics
 			canvasGame.Children.Clear();
 			_moveDirection = _keyPress;
 			_snake.Move(_moveDirection);//Двигаем змейку
-			eSnakeMove sm = _level.Update(_snake.SnakeCoordinates);//Обновляем карту уровня
+			_foeSnake.Move(_snakeAi.DetermineTheDirection(_foeSnake.SnakeCoordinates[0]));
+			eSnakeMove sm = _level.Update(_snake.SnakeCoordinates, false);//Обновляем карту уровня
+			eSnakeMove smF = _level.Update(_foeSnake.SnakeCoordinates, true);
 			_drawer.Draw(_level, ref canvasGame);//Перерисовываем сцену
 
 			switch (sm)//Учитываем результат движения змейки
@@ -79,6 +84,21 @@ namespace snake.Graphics
 					_level.GenerateFood();
 					_victoryPoints++;
 					textBlockVPoints.Text = _victoryPoints.ToString();
+					break;
+			}
+			switch (smF)//Учитываем результат движения змейки-конкурента
+			{
+				case eSnakeMove.Normal:
+					break;
+				case eSnakeMove.Died:
+					MessageBox.Show("GameOver!");
+					this.Close();
+					break;
+				case eSnakeMove.Fed:
+					_foeSnake.LengthUp();
+					_level.GenerateFood();
+					//_victoryPoints++;
+					//textBlockVPoints.Text = _victoryPoints.ToString();
 					break;
 			}
 		}
@@ -158,8 +178,11 @@ namespace snake.Graphics
 			_level.Start("Level1");//Стартовая карта уровня //TODO хардкод
 			_keyPress = _level.SnakeStartDirection;
 			_snake = new Snake(_level.StartSnakeCoord, _level.SnakeStartDirection);//Стартовое положение змейки
-			_level.Update(_snake.SnakeCoordinates);//Учитываем положение змейки
+			_foeSnake = new Snake(_level.StartFoeSnakeCoord, _level.FoeSnakeStartDirection);//Стартовое положение змейки-конкурента
+			_level.Update(_snake.SnakeCoordinates, false);//Учитываем положение змейки
+			_level.Update(_foeSnake.SnakeCoordinates, true);
 			_level.GenerateFood();//Генерируем еду
+			_snakeAi = new SnakeAI(_level, _level.FoeSnakeStartDirection);
 			_drawer.Draw(_level, ref canvasGame);//Рисуем сцену
 
 			DateTime dt = DateTime.Now;
@@ -179,10 +202,10 @@ namespace snake.Graphics
 			_pause = pause;
 			if (_pause)
 			{
-				_pixelArt = new PixelArt(PixelArt.eArts.Pause);
-				_pixelArt.Closed += new EventHandler(_pixelArt_Closed);
-				_pixelArt.Show();
-				this.Visibility = Visibility.Collapsed;
+				//_pixelArt = new PixelArt(PixelArt.eArts.Pause);
+				//_pixelArt.Closed += new EventHandler(_pixelArt_Closed);
+				//_pixelArt.Show();
+				//this.Visibility = Visibility.Collapsed;
 			}
 			else
 			{	

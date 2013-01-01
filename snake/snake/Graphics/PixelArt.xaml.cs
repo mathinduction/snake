@@ -59,7 +59,7 @@ namespace snake.Graphics
 			canvasPixelArt.Children.Clear();
 			_moveDirection = GenerateMoveDrection();
 			_snake.Move(_moveDirection);//Двигаем змейку
-			eSnakeMove sm = _level.Update(_snake.SnakeCoordinates);//Обновляем карту уровня
+			eSnakeMove sm = _level.Update(_snake.SnakeCoordinates, false);//Обновляем карту уровня
 			_drawer.Draw(_level, ref canvasPixelArt);//Перерисовываем сцену
 
 			switch (sm)//Учитываем результат движения змейки
@@ -87,7 +87,7 @@ namespace snake.Graphics
 			_moveDirection = _level.SnakeStartDirection;
 			_snake = new Snake(_level.StartSnakeCoord, _moveDirection);//Стартовое положение змейки
 			_snake.SnakeCoordinates = SetSnakeCoord();
-			_level.Update(_snake.SnakeCoordinates);//Учитываем положение змейки
+			_level.Update(_snake.SnakeCoordinates, false);//Учитываем положение змейки
 			_drawer.Draw(_level, ref canvasPixelArt);//Рисуем сцену
 
 			DateTime dt = DateTime.Now;

@@ -15,7 +15,9 @@ namespace snake.Game
 		private int _heigth;
 		private ePixelType[,] _levelPixels;
 		private Point _startSnakeCoord = new Point();
+		private Point _startFoeSnakeCoord = new Point();
 		private eKeyPress _snakeStartDirection;
+		private eKeyPress _foeSnakeStartDirection;
 
 		public Level(int Width, int Heigth)
 		{
@@ -35,10 +37,14 @@ namespace snake.Game
 				}
 		}
 		/// <summary>
-		/// обновляет уровень в соответствии с новыми координатами змейки
+		/// Обновляет уровень в соответствии с новыми координатами змейки (isFoeSnake=true -> обновление для змейки-конкурента)
 		/// </summary>
-		public eSnakeMove Update(List<Point> snakeCoords)
+		public eSnakeMove Update(List<Point> snakeCoords, bool isFoeSnake)
 		{
+			ePixelType pt = ePixelType.SnakePart;
+			if (isFoeSnake)
+				pt = ePixelType.FoeSnakePart;
+
 			eSnakeMove sm = eSnakeMove.Normal;
 			switch (_levelPixels[(int)snakeCoords[0].X, (int)snakeCoords[0].Y])
 			{
@@ -49,6 +55,8 @@ namespace snake.Game
 					return eSnakeMove.Died;
 				case ePixelType.SnakePart:
 					return eSnakeMove.Died;
+				case ePixelType.FoeSnakePart:
+					return eSnakeMove.Died;
 				case ePixelType.Food:
 					sm = eSnakeMove.Fed;
 					break;
@@ -56,13 +64,13 @@ namespace snake.Game
 			for (int i = 0; i < _levelPixels.GetLength(0); i++)//Убираем старые записи о координатах змейки на карте уровня
 				for (int j = 0; j < _levelPixels.GetLength(1); j++)
 				{
-					if (_levelPixels[i, j] == ePixelType.SnakePart)
+					if (_levelPixels[i, j] == pt)
 						_levelPixels[i, j] = ePixelType.None;
 						
 				}
 			for (int i = 0; i < snakeCoords.Count; i++)//Записываем новые
 			{
-				_levelPixels[(int) snakeCoords[i].X, (int) snakeCoords[i].Y] = ePixelType.SnakePart;
+				_levelPixels[(int) snakeCoords[i].X, (int) snakeCoords[i].Y] = pt;
 			}
 
 			return sm;
@@ -94,6 +102,8 @@ namespace snake.Game
 			System.IO.StreamReader file = new System.IO.StreamReader(path);
 			line = file.ReadLine();
 			_snakeStartDirection = (eKeyPress)int.Parse(line);
+			line = file.ReadLine();
+			_foeSnakeStartDirection = (eKeyPress)int.Parse(line);
 
 			line = file.ReadLine();//TODO просто пропскаю 2 строчки
 			line = file.ReadLine();
@@ -114,6 +124,9 @@ namespace snake.Game
 								break;
 							case 3:
 								_startSnakeCoord = new Point(i, j);
+								break;
+							case 4:
+								_startFoeSnakeCoord = new Point(i, j);
 								break;
 							default:
 								_levelPixels[i, j] = ePixelType.None;
@@ -158,12 +171,28 @@ namespace snake.Game
 			get { return _startSnakeCoord; }
 		}
 		/// <summary>
+		/// Стартовые кооординаты змейки-конкурента
+		/// </summary>
+		public Point StartFoeSnakeCoord
+		{
+			set { _startFoeSnakeCoord = value; }
+			get { return _startFoeSnakeCoord; }
+		}
+		/// <summary>
 		/// Стартовое направление движения змейки
 		/// </summary>
 		public eKeyPress SnakeStartDirection
 		{
 			set { _snakeStartDirection = value; }
 			get { return _snakeStartDirection; }
+		}
+		/// <summary>
+		/// Стартовое направление движения змейки-конкурента
+		/// </summary>
+		public eKeyPress FoeSnakeStartDirection
+		{
+			set { _foeSnakeStartDirection = value; }
+			get { return _foeSnakeStartDirection; }
 		}
 #endregion
 	}

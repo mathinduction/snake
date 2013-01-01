@@ -20,6 +20,7 @@ namespace snake.Graphics
 		private Brush _colorBlock = Brushes.White;//Цвет пикселя с блоком
 		private Brush _colorFood = Brushes.Yellow;//Цвет пикселя с едой
 		private Brush _colorSnake = Brushes.YellowGreen;//Цвет пикселя с частью змейки
+		private Brush _colorFoeSnake = Brushes.Red;//Цвет пикселя с частью змейки-конкурента
 
 		public DrawTheScene(int width, int heigth)
 		{
@@ -48,6 +49,9 @@ namespace snake.Graphics
 							break;
 						case ePixelType.SnakePart:
 							rect = Pixel.DrawPixel(_levelPixelCoord[i, j].X, _levelPixelCoord[i, j].Y, _colorSnake);
+							break;
+						case ePixelType.FoeSnakePart:
+							rect = Pixel.DrawPixel(_levelPixelCoord[i, j].X, _levelPixelCoord[i, j].Y, _colorFoeSnake);
 							break;
 					}
 					canvas.Children.Add(rect);
