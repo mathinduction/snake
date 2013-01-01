@@ -74,5 +74,15 @@ namespace snake.Graphics
 				}
 			}
 		}
+
+		/// <summary>
+		/// Функция для дебага. Рисует указанный пиксель указанным цветом
+		/// </summary>
+		public void DrawPixel(int x, int y, Brush color, ref Canvas canvas)//TEMP
+		{
+			Rectangle rect = new Rectangle();
+			rect = Pixel.DrawPixel(_levelPixelCoord[x, y].X, _levelPixelCoord[x, y].Y, color);
+			canvas.Children.Add(rect);
+		}
 	}
 }

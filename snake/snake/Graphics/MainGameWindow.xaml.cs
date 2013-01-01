@@ -76,7 +76,7 @@ namespace snake.Graphics
 				case eSnakeMove.Normal:
 					break;
 				case eSnakeMove.Died:
-					MessageBox.Show("GameOver!");
+					MessageBox.Show("GameOver! Fail!");
 					this.Close();
 					break;
 				case eSnakeMove.Fed:
@@ -91,7 +91,7 @@ namespace snake.Graphics
 				case eSnakeMove.Normal:
 					break;
 				case eSnakeMove.Died:
-					MessageBox.Show("GameOver!");
+					MessageBox.Show("GameOver! Win!");
 					this.Close();
 					break;
 				case eSnakeMove.Fed:
