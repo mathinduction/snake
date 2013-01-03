@@ -22,8 +22,6 @@ namespace snake.AI
 		public eKeyPress DetermineTheDirection(Point position)
 		{
 //#define _DEBUG  //Вкл/выкл дебажный режим
-			bool good = false;
-			eKeyPress direction;
 			Point snakeHead = position;
 			int [] directionRank = new int[4];//Массив оценок направлений, каждый элемент соответствует одному направлению
 

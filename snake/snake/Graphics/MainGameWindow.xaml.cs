@@ -30,7 +30,8 @@ namespace snake.Graphics
 		private Game.Level _level;//Уровень
 		private eKeyPress _keyPress;//Нажатая клавиша управления
 		private eKeyPress _moveDirection;//Направление движения змейки
-		private long _frameTime = 0;//Число милисекунд, прошедших с последнего обновления карты уровня
+		private long _frameTimePlayer = 0;//Число милисекунд, прошедших с последнего хода игрока
+		private long _frameTimeAI = 0;//Число милисекунд, прошедших с последнего ходи ИИ
 		private bool _holdKey = false;//Флаг удержания клавиши. Нужен для включения ускорения
 		private bool _pause = false;//Включена ли пауза
 		private int _victoryPoints = 0;//Победные очки
@@ -64,47 +65,73 @@ namespace snake.Graphics
 			
 			DateTime dt = DateTime.Now;
 			long t = dt.Millisecond + dt.Second*1000 + dt.Minute*60*1000 + dt.Hour*60*60*1000;
-			if ((t - _frameTime) < Common.TimeToMove) return;
-			_frameTime = t;
+			bool player=false, AI = false;
+			//Отдельно для каждой змейки определяем, когда она должна ходить. 
+			//Нужно для того,что бы ускорение змейки-игрока не влияло на змейку-ИИ.
+			if ((t - _frameTimePlayer) > Common.TimeToMovePlayer) 
+			{
+				player = true;
+				_frameTimePlayer = t;
+			}
+			if ((t - _frameTimeAI) > Common.TimeToMoveAI)
+			{
+				AI = true;
+				_frameTimeAI = t;
+			}
+			if (!player && !AI) return;
 
 			canvasGame.Children.Clear();
-			_moveDirection = _keyPress;
-			_snake.Move(_moveDirection);//Двигаем змейку
-			eSnakeMove sm = _level.Update(_snake.SnakeCoordinates, false);//Обновляем карту уровня
-			switch (sm)//Учитываем результат движения змейки
+			if (player)
 			{
-				case eSnakeMove.Normal:
-					break;
-				case eSnakeMove.Died:
-					MessageBox.Show("GameOver! Fail!");
-					this.Close();
-					break;
-				case eSnakeMove.Fed:
-					_snake.LengthUp();
-					_level.GenerateFood();
-					_victoryPoints++;
-					textBlockVPoints.Text = _victoryPoints.ToString();
-					break;
-			}
-			if (_useAI)
-			{
-				_foeSnake.Move(_snakeAi.DetermineTheDirection(_foeSnake.SnakeCoordinates[0]));
-				eSnakeMove smF = _level.Update(_foeSnake.SnakeCoordinates, true);
-				switch (smF) //Учитываем результат движения змейки-конкурента
+				#region Player-snake
+
+				_moveDirection = _keyPress;
+				_snake.Move(_moveDirection); //Двигаем змейку
+				eSnakeMove sm = _level.Update(_snake.SnakeCoordinates, false); //Обновляем карту уровня
+				switch (sm) //Учитываем результат движения змейки
 				{
 					case eSnakeMove.Normal:
 						break;
 					case eSnakeMove.Died:
-						MessageBox.Show("GameOver! Win!");
+						MessageBox.Show("GameOver! Fail!");
 						this.Close();
 						break;
 					case eSnakeMove.Fed:
-						_foeSnake.LengthUp();
+						_snake.LengthUp();
 						_level.GenerateFood();
-						//_victoryPoints++;
-						//textBlockVPoints.Text = _victoryPoints.ToString();
+						_victoryPoints++;
+						textBlockVPoints.Text = _victoryPoints.ToString();
 						break;
 				}
+
+				#endregion
+			}
+			if (AI)
+			{
+				#region Snake-AI
+
+				if (_useAI)
+				{
+					_foeSnake.Move(_snakeAi.DetermineTheDirection(_foeSnake.SnakeCoordinates[0]));
+					eSnakeMove smF = _level.Update(_foeSnake.SnakeCoordinates, true);
+					switch (smF) //Учитываем результат движения змейки-конкурента
+					{
+						case eSnakeMove.Normal:
+							break;
+						case eSnakeMove.Died:
+							MessageBox.Show("GameOver! Win!");
+							this.Close();
+							break;
+						case eSnakeMove.Fed:
+							_foeSnake.LengthUp();
+							_level.GenerateFood();
+							//_victoryPoints++;
+							//textBlockVPoints.Text = _victoryPoints.ToString();
+							break;
+					}
+				}
+
+				#endregion
 			}
 			_drawer.Draw(_level, ref canvasGame);//Перерисовываем сцену
 		}
@@ -196,7 +223,8 @@ namespace snake.Graphics
 
 			DateTime dt = DateTime.Now;
 			long t = dt.Millisecond + dt.Second * 1000 + dt.Minute * 60 * 1000 + dt.Hour * 60 * 60 * 1000;
-			_frameTime = t;
+			_frameTimePlayer = t;
+			_frameTimeAI = t;
 		}
 		/// <summary>
 		/// Пауза

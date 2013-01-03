@@ -82,9 +82,9 @@ namespace snake
 			get { return _pixelSize; }
 		}
 		/// <summary>
-		/// Время между двуме сдвигами змейки/обновлениями карты уровня
+		/// Время между двумя ходами змейки игрока
 		/// </summary>
-		public static int TimeToMove
+		public static int TimeToMovePlayer
 		{
 			get
 			{
@@ -93,6 +93,13 @@ namespace snake
 				else
 					return _timeToMove;
 			}
+		}
+		/// <summary>
+		/// Время между двумя ходами змейки-ИИ
+		/// </summary>
+		public static int TimeToMoveAI
+		{
+			get { return _timeToMove; }
 		}
 		/// <summary>
 		/// Во сколько раз увеличивается скорость при ускорении

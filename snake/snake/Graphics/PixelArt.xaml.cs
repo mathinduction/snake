@@ -53,7 +53,7 @@ namespace snake.Graphics
 		{
 			DateTime dt = DateTime.Now;
 			long t = dt.Millisecond + dt.Second * 1000 + dt.Minute * 60 * 1000 + dt.Hour * 60 * 60 * 1000;
-			if ((t - _frameTime) < Common.TimeToMove) return;
+			if ((t - _frameTime) < Common.TimeToMovePlayer) return;
 			_frameTime = t;
 
 			canvasPixelArt.Children.Clear();
