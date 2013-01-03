@@ -6,8 +6,10 @@
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition />
+			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Button Name="buttonStart" Grid.Row="0" Height="30" Width="100" Click="buttonStart_Click">Press To Start</Button>
-		<Button Name="buttonEditor" Grid.Row="1" Height="30" Width="100" Click="buttonEditor_Click">Editor</Button>
+		<Button Name="buttonStart1" Grid.Row="0" Height="30" Width="100" Click="buttonStart1_Click">Press To Start(1)</Button>
+		<Button Name="buttonStart2" Grid.Row="1" Height="30" Width="100" Click="buttonStart2_Click">Press To Start(2)</Button>
+		<Button Name="buttonEditor" Grid.Row="2" Height="30" Width="100" Click="buttonEditor_Click">Editor</Button>
 	</Grid>
 </Window>

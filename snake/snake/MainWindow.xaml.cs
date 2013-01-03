@@ -26,9 +26,16 @@ namespace snake
 			InitializeComponent();
 		}
 
-		private void buttonStart_Click(object sender, RoutedEventArgs e)
+		private void buttonStart1_Click(object sender, RoutedEventArgs e)
 		{
-			Graphics.MainGameWindow gameWindow = new MainGameWindow();
+			Graphics.MainGameWindow gameWindow = new MainGameWindow(false);
+			gameWindow.Closing += new System.ComponentModel.CancelEventHandler(gameWindow_Closing);
+			gameWindow.Show();
+			this.Visibility = Visibility.Collapsed;
+		}
+		private void buttonStart2_Click(object sender, RoutedEventArgs e)
+		{
+			Graphics.MainGameWindow gameWindow = new MainGameWindow(true);
 			gameWindow.Closing += new System.ComponentModel.CancelEventHandler(gameWindow_Closing);
 			gameWindow.Show();
 			this.Visibility = Visibility.Collapsed;
