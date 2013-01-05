@@ -1,9 +1,10 @@
 ﻿<Window x:Class="snake.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="StartWindow" Height="150" Width="200" ResizeMode="NoResize" >
+        Title="StartWindow" Height="200" Width="200" ResizeMode="NoResize" >
     <Grid>
 		<Grid.RowDefinitions>
+			<RowDefinition />
 			<RowDefinition />
 			<RowDefinition />
 			<RowDefinition />
@@ -11,5 +12,6 @@
 		<Button Name="buttonStart1" Grid.Row="0" Height="30" Width="100" Click="buttonStart1_Click">Press To Start(1)</Button>
 		<Button Name="buttonStart2" Grid.Row="1" Height="30" Width="100" Click="buttonStart2_Click">Press To Start(2)</Button>
 		<Button Name="buttonEditor" Grid.Row="2" Height="30" Width="100" Click="buttonEditor_Click">Editor</Button>
+		<Button Name="buttonSettings" Grid.Row="3" Height="30" Width="100" Click="buttonSettings_Click">Settings</Button>
 	</Grid>
 </Window>

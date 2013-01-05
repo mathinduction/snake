@@ -1,0 +1,30 @@
+﻿<Window x:Class="snake.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SettingsWindow" Width="300" SizeToContent="Height">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="175"/>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		
+		<TextBlock Grid.Column="0" Grid.Row="0" Margin="5">Глубина рекурсии:</TextBlock>
+		<TextBox Grid.Column="1" Grid.Row="0" Name="textBoxRecursionDepth" MaxLength="2" Margin="5"></TextBox>
+
+		<TextBlock Grid.Column="0" Grid.Row="1" Margin="5">Время сдвига для змейки:</TextBlock>
+		<TextBox Grid.Column="1" Grid.Row="1" Name="textBoxTimeToMove" MaxLength="4"  Margin="5"></TextBox>
+		
+		<TextBlock Grid.Column="0" Grid.Row="2" Margin="5">Время сдвига для змейки-ИИ:</TextBlock>
+		<TextBox Grid.Column="1" Grid.Row="2" Name="textBoxTimeToMoveFoe" MaxLength="4"  Margin="5"></TextBox>
+		
+		<Button Grid.Column="0" Grid.Row="3" Margin="5" Height="25" Width="90" Name="buttonOk" HorizontalAlignment="Left" Click="buttonOk_Click">Ok</Button>
+		<Button Grid.Column="1" Grid.Row="3" Margin="5" Height="25" Width="90" Name="buttonCancel" Click="buttonCancel_Click">Cancel</Button>
+	</Grid>
+</Window>

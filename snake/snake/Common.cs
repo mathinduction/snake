@@ -49,13 +49,14 @@ namespace snake
 		private static int _numberPixelWidth = 15;
 		private const int _pixelSize = 15;
 
-		private const int _timeToMove = 600;
+		private static int _timeToMove = 600;
+		private static int _timeToMoveAI = 400;
 		private const int _speedUp = 3;
 		private static bool _holdKey = false;
 
 		private const string _pathLevels = "Levels";
 
-		private const int _recursionDepth = 10;
+		private static int _recursionDepth = 10;
 
 #endregion
 
@@ -88,6 +89,7 @@ namespace snake
 		/// </summary>
 		public static int TimeToMovePlayer
 		{
+			set { _timeToMove = value; }
 			get
 			{
 				if (_holdKey)
@@ -101,7 +103,8 @@ namespace snake
 		/// </summary>
 		public static int TimeToMoveAI
 		{
-			get { return _timeToMove; }
+			set { _timeToMoveAI = value; }
+			get { return _timeToMoveAI; }
 		}
 		/// <summary>
 		/// Во сколько раз увеличивается скорость при ускорении
@@ -130,6 +133,7 @@ namespace snake
 		/// </summary>
 		public static int RecursionDepth
 		{
+			set { _recursionDepth = value; }
 			get { return _recursionDepth; }
 		}
 #endregion
