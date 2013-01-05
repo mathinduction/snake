@@ -40,6 +40,9 @@ namespace snake.Graphics
 			canvasGame.Height = Common.NumberPixelHeight * Common.PixelSize;
 
 			_drawer = new DrawTheScene(Common.NumberPixelWidth, Common.NumberPixelHeight);
+
+			textBlockVPFoe.Visibility = Visibility.Hidden;
+			textBlockVPointsFoe.Visibility = Visibility.Hidden;
 			StartGame();
 		}
 
@@ -119,7 +122,7 @@ namespace snake.Graphics
 							_foeSnake.LengthUp();
 							_level.GenerateFood();
 							_victoryPointsFoe++;
-							textBlockVPointsFoe.Text = _victoryPoints.ToString();
+							textBlockVPointsFoe.Text = _victoryPointsFoe.ToString();
 							break;
 					}
 				}
@@ -210,6 +213,8 @@ namespace snake.Graphics
 			_level.Update(_snake.SnakeCoordinates, false);//Учитываем положение змейки
 			if (_useAI)
 			{
+				textBlockVPFoe.Visibility = Visibility.Visible;
+				textBlockVPointsFoe.Visibility = Visibility.Visible;
 				_foeSnake = new Snake(_level.StartFoeSnakeCoord, _level.FoeSnakeStartDirection);//Стартовое положение змейки-конкурента
 				_level.Update(_foeSnake.SnakeCoordinates, true);
 				_snakeAi = new SnakeAI(_level, _level.FoeSnakeStartDirection);
