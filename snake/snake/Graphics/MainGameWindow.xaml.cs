@@ -112,7 +112,8 @@ namespace snake.Graphics
 
 				if (_useAI)
 				{
-					_foeSnake.Move(_snakeAi.DetermineTheDirection(_foeSnake.SnakeCoordinates[0]));
+					//_foeSnake.Move(_snakeAi.DetermineTheDirection(_foeSnake.SnakeCoordinates[0]));
+					_foeSnake.Move(_snakeAi.DetermineTheDirectionRecursive(_foeSnake.SnakeCoordinates[0]));
 					eSnakeMove smF = _level.Update(_foeSnake.SnakeCoordinates, true);
 					switch (smF) //Учитываем результат движения змейки-конкурента
 					{

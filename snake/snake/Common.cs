@@ -55,6 +55,8 @@ namespace snake
 
 		private const string _pathLevels = "Levels";
 
+		private const int _recursionDepth = 10;
+
 #endregion
 
 #region Properties
@@ -122,6 +124,13 @@ namespace snake
 		public static string PathLevels
 		{
 			get { return _pathLevels; }
+		}
+		/// <summary>
+		/// Глубина рекурсии
+		/// </summary>
+		public static int RecursionDepth
+		{
+			get { return _recursionDepth; }
 		}
 #endregion
 	}
