@@ -13,10 +13,21 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
-		<StackPanel Grid.Row="0" Orientation="Horizontal">
-			<TextBlock Foreground="White" Margin="5">Victory Points:</TextBlock>
-			<TextBlock Name="textBlockVPoints" Foreground="White" Margin="5">0</TextBlock>
-		</StackPanel>
+		<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			
+			<TextBlock Grid.Column="0" Foreground="YellowGreen" Margin="5">Your Points:</TextBlock>
+			<TextBlock Grid.Column="1" Name="textBlockVPoints" Foreground="YellowGreen" Margin="5">0</TextBlock>
+
+			<TextBlock Grid.Column="2" Foreground="Red" Margin="5">Foe Points:</TextBlock>
+			<TextBlock Grid.Column="3" Name="textBlockVPointsFoe" Foreground="Red" Margin="5">0</TextBlock>
+		</Grid>
+			
 
 		<Canvas Name="canvasGame" Grid.Row="1" Margin="5">
 		</Canvas>

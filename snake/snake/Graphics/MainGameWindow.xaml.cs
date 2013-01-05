@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using snake.AI;
 using snake.Game;
 
@@ -35,6 +26,7 @@ namespace snake.Graphics
 		private bool _holdKey = false;//Флаг удержания клавиши. Нужен для включения ускорения
 		private bool _pause = false;//Включена ли пауза
 		private int _victoryPoints = 0;//Победные очки
+		private int _victoryPointsFoe = 0;//Победные очки змейки-конкурента
 		private DrawTheScene _drawer;//Рисовалищик
 		private PixelArt _pixelArt;
 #endregion
@@ -126,8 +118,8 @@ namespace snake.Graphics
 						case eSnakeMove.Fed:
 							_foeSnake.LengthUp();
 							_level.GenerateFood();
-							//_victoryPoints++;
-							//textBlockVPoints.Text = _victoryPoints.ToString();
+							_victoryPointsFoe++;
+							textBlockVPointsFoe.Text = _victoryPoints.ToString();
 							break;
 					}
 				}
@@ -208,6 +200,9 @@ namespace snake.Graphics
 		/// </summary>
 		private void StartGame()
 		{
+			_victoryPoints = 0;
+			_victoryPointsFoe = 0;
+
 			_level = new Level(Common.NumberPixelWidth, Common.NumberPixelHeight);
 			_level.Start("Level1");//Стартовая карта уровня //TODO хардкод
 			_keyPress = _level.SnakeStartDirection;
